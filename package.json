@@ -10,14 +10,19 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:getx-generator.getxInstall"
+    "onCommand:getx-generator.getxInstall",
+    "onCommand:getx-generator.getxAddPage"
   ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
         "command": "getx-generator.getxInstall",
-        "title": "GetX Install"
+        "title": "GetX: Generate Base"
+      },
+      {
+        "command": "getx-generator.getxAddPage",
+        "title": "GetX: Generate Files"
       }
     ]
   },

@@ -1,10 +1,11 @@
 const vscode = require('vscode')
 const replace = require('replace-in-file')
 const fs = require('fs')
+const utils = require('./utils.js')
 var cp = require('child_process')
 
 async function getxInstall() {
-    var pubspecPath = await getPubspecPath()
+    var pubspecPath = await utils.getPubspecPath()
 
     if (typeof pubspecPath === 'string' && pubspecPath.length > 0) {
 
@@ -18,12 +19,12 @@ async function getxInstall() {
         flutter pub remove get flutter_spinkit responsive_framework google_fonts flutter_datetime_picker
         `, (err, stdout, stderr) => {
             if (err) {
-                
+
                 return console.log('error: ' + err)
             }
             console.log('stdout: ' + stdout)
             console.log('stderr: ' + stderr)
-            
+
             data = fs.readFileSync(pubspecPath, 'utf-8')
             lines = data.split('\n')
             var index = 0
@@ -33,15 +34,15 @@ async function getxInstall() {
                     index = i
                 }
             }
-            lines.splice(index - 1, 0, "  google_fonts: 2.3.0")
-            lines.splice(index - 1, 0, "  flutter_datetime_picker: 1.5.1")
-            lines.splice(index - 1, 0, "  responsive_framework: 0.1.7")
-            lines.splice(index - 1, 0, "  flutter_spinkit: 5.1.0")
-            lines.splice(index - 1, 0, "  get: 4.6.1")
+            lines.splice(index - 1, 0, "  google_fonts: 2.2.0")
+            lines.splice(index - 1, 0, "  flutter_datetime_picker: 1.5.0")
+            lines.splice(index - 1, 0, "  responsive_framework: 0.1.6")
+            lines.splice(index - 1, 0, "  flutter_spinkit: 5.0.0")
+            lines.splice(index - 1, 0, "  get: 4.6.0")
             fs.writeFileSync(pubspecPath, lines.join('\n'), 'utf-8')
             data = lines.join('\n')
 
-            cp.exec(`cd ${path} && flutter pub get`)
+            cp.exec(`cd ${path} && dart pub upgrade --major-versions`)
         })
 
 
@@ -53,6 +54,7 @@ async function getxInstall() {
 
 /**
  * @param {string} path
+ * @param {string} projectName
  */
 async function moveFile(path, projectName) {
 
@@ -90,60 +92,7 @@ async function moveFile(path, projectName) {
 
 }
 
-async function getPubspecPath() {
-    try {
-        let path = await vscode.workspace.findFiles('pubspec.yaml')
-        return path[0].path
-    } catch (error) {
-        const pickItems = getxInstallTemplate()
-
-        const selectedTemplate = await vscode.window.showQuickPick(
-            pickItems,
-            {
-                matchOnDescription: true,
-                placeHolder: "Project not found!",
-            },
-        )
-
-        if (!selectedTemplate)
-            return;
-
-        chooseGetxInstallTemplate(selectedTemplate.template.id);
-        return;
-    }
-}
-
-/**
- * @param {string} id
- */
-function chooseGetxInstallTemplate(id) {
-    switch (id) {
-        case 'createProject':
-            return vscode.commands.executeCommand('flutter.createProject');
-        case 'openProject':
-            return vscode.commands.executeCommand('vscode.openFolder');
-        default:
-            return;
-    }
-}
-
-function getxInstallTemplate() {
-    const templates = [
-        {
-            detail: "Create new flutter project.",
-            label: "Flutter: New Project",
-            template: { id: "createProject" },
-        },
-        {
-            detail: "Open an existing flutter project.",
-            label: "Flutter: Open Project",
-            template: { id: "openProject" },
-        },
-    ]
-
-    return templates
-}
 
 module.exports = {
     getxInstall
-};
+}
