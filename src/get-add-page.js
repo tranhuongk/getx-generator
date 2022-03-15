@@ -65,22 +65,22 @@ async function moveFile(path, projectName, pageName) {
             function (w) { return w[0].toUpperCase() + w.slice(1).toLowerCase(); })
 
     await vscode.workspace.fs.copy(
-        vscode.Uri.parse(`${extension.extensionPath}/template/app/data/provider/template_provider.dart`),
+        vscode.Uri.parse(`${extension.extensionPath}/getx_pattern/template/app/data/provider/template_provider.dart`),
         vscode.Uri.parse(`${path}lib/app/data/provider/${fileName}_provider.dart`),
         { overwrite: true }
     )
     await vscode.workspace.fs.copy(
-        vscode.Uri.parse(`${extension.extensionPath}/template/app/modules/template_module/template_page.dart`),
+        vscode.Uri.parse(`${extension.extensionPath}/getx_pattern/template/app/modules/template_module/template_page.dart`),
         vscode.Uri.parse(`${path}lib/app/modules/${fileName}_module/${fileName}_page.dart`),
         { overwrite: true }
     )
     await vscode.workspace.fs.copy(
-        vscode.Uri.parse(`${extension.extensionPath}/template/app/modules/template_module/template_controller.dart`),
+        vscode.Uri.parse(`${extension.extensionPath}/getx_pattern/template/app/modules/template_module/template_controller.dart`),
         vscode.Uri.parse(`${path}lib/app/modules/${fileName}_module/${fileName}_controller.dart`),
         { overwrite: true }
     )
     await vscode.workspace.fs.copy(
-        vscode.Uri.parse(`${extension.extensionPath}/template/app/modules/template_module/template_binding.dart`),
+        vscode.Uri.parse(`${extension.extensionPath}/getx_pattern/template/app/modules/template_module/template_binding.dart`),
         vscode.Uri.parse(`${path}lib/app/modules/${fileName}_module/${fileName}_binding.dart`),
         { overwrite: true }
     )

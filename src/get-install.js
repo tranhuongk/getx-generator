@@ -60,7 +60,7 @@ async function moveFile(path, projectName) {
 
     vscode.extensions.all.forEach((e) => {
         if (e.id.includes("getx-generator")) {
-            vscode.workspace.fs.copy(vscode.Uri.parse(`${e.extensionPath}/lib`), vscode.Uri.parse(`${path}lib`), { overwrite: true }).then(() => {
+            vscode.workspace.fs.copy(vscode.Uri.parse(`${e.extensionPath}/getx_pattern/lib`), vscode.Uri.parse(`${path}lib`), { overwrite: true }).then(() => {
 
                 replace.sync({
                     files: [
