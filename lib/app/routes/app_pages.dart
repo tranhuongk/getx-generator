@@ -8,13 +8,13 @@ class AppPages {
   AppPages._();
   static final pages = [
     GetPage(
-      name: AppRoutes.HOME,
-      page: () => HomePage(),
+      name: AppRoutes.home,
+      page: () => const HomePage(),
       binding: HomeBinding(),
     ),
     GetPage(
-      name: AppRoutes.INITIAL,
-      page: () => SplashPage(),
+      name: AppRoutes.initial,
+      page: () => const SplashPage(),
     ),
   ];
 }

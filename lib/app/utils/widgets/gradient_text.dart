@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class GradientText extends StatelessWidget {
-  GradientText({
+  const GradientText({
+    Key? key,
     required this.child,
     required this.gradient,
-  });
+  }) : super(key: key);
 
   final Widget child;
   final Gradient gradient;

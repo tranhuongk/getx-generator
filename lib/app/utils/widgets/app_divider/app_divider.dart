@@ -3,9 +3,11 @@ import 'package:getx_generator/app/themes/app_colors.dart';
 
 class AppDivider extends Divider {
   const AppDivider({
+    Key? key,
     Color color = AppColors.colorDivider,
     double height = 1.5,
   }) : super(
+          key: key,
           color: color,
           height: height,
           thickness: 1.5,
@@ -13,6 +15,8 @@ class AppDivider extends Divider {
 }
 
 class AppVerticalDivider extends StatelessWidget {
+  const AppVerticalDivider({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return const VerticalDivider(
@@ -23,8 +27,11 @@ class AppVerticalDivider extends StatelessWidget {
 }
 
 class AppDefaultVertical extends StatelessWidget {
-  const AppDefaultVertical(
-      {this.height = 0, this.color = AppColors.colorDivider});
+  const AppDefaultVertical({
+    Key? key,
+    this.height = 0,
+    this.color = AppColors.colorDivider,
+  }) : super(key: key);
   final double height;
   final Color color;
 
@@ -39,8 +46,11 @@ class AppDefaultVertical extends StatelessWidget {
 }
 
 class AppDefaultHorizontal extends StatelessWidget {
-  const AppDefaultHorizontal(
-      {this.height = 0, this.color = AppColors.colorDivider});
+  const AppDefaultHorizontal({
+    Key? key,
+    this.height = 0,
+    this.color = AppColors.colorDivider,
+  }) : super(key: key);
   final double height;
   final Color color;
 
@@ -60,10 +70,11 @@ class AppDashDivider extends StatelessWidget {
   final Color color;
 
   const AppDashDivider({
+    Key? key,
     this.height = 1,
     this.width = 10,
     this.color = AppColors.colorDivider,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

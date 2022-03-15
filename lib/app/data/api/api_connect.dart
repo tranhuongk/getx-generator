@@ -8,7 +8,7 @@ import 'package:getx_generator/app/utils/constants.dart';
 
 class ApiConnect extends GetConnect {
   static final ApiConnect instance = ApiConnect._();
-  Map<String, dynamic>? _reqBody;
+  dynamic _reqBody;
 
   ApiConnect._() {
     baseUrl = EndPoints.baseUrl;
@@ -16,7 +16,6 @@ class ApiConnect extends GetConnect {
     timeout = EndPoints.timeout;
 
     httpClient.addRequestModifier<dynamic>((request) {
-      print('request');
       logPrint('************** Request **************');
       _printKV('uri', request.url);
       _printKV('method', request.method);
@@ -24,7 +23,11 @@ class ApiConnect extends GetConnect {
       logPrint('headers:');
       request.headers.forEach((key, v) => _printKV(' $key', v));
       logPrint('data:');
-      if (_reqBody != null) _reqBody?.forEach((key, v) => _printKV(' $key', v));
+      if (_reqBody is Map) {
+        _reqBody?.forEach((key, v) => _printKV(' $key', v));
+      } else {
+        _printAll(_reqBody.toString());
+      }
       logPrint('*************************************');
       return request;
     });
@@ -56,18 +59,40 @@ class ApiConnect extends GetConnect {
   }) {
     _checkIfDisposed();
 
-    // var box = Hive.box(Constants.HIVE_BOX);
-    // String token = box.get(Constants.TOKEN, defaultValue: "");
-    Map<String, String> _headers = headers ?? Map<String, String>();
-    // _headers["Authorization"] = "Bearer" + token;
+    Map<String, String> _headers = headers ?? <String, String>{};
+    // _headers["Authorization"] = "Bearer " + HiveAdapter.getAccessToken();
 
+    _reqBody = query;
     return httpClient.get<T>(
       url,
       headers: _headers,
       contentType: contentType,
       query: query,
       decoder: decoder,
-    );
+    )..whenComplete(() => _reqBody = null);
+  }
+
+  @override
+  Future<Response<T>> delete<T>(
+    String url, {
+    Map<String, String>? headers,
+    String? contentType,
+    Map<String, dynamic>? query,
+    Decoder<T>? decoder,
+  }) {
+    _checkIfDisposed();
+
+    Map<String, String> _headers = headers ?? <String, String>{};
+    // _headers["Authorization"] = "Bearer " + HiveAdapter.getAccessToken();
+
+    _reqBody = query;
+    return httpClient.delete<T>(
+      url,
+      headers: _headers,
+      contentType: contentType,
+      query: query,
+      decoder: decoder,
+    )..whenComplete(() => _reqBody = null);
   }
 
   @override
@@ -82,14 +107,43 @@ class ApiConnect extends GetConnect {
   }) {
     _checkIfDisposed();
 
-    // var box = Hive.box(Constants.HIVE_BOX);
-    // String token = box.get(Constants.TOKEN, defaultValue: "");
-    Map<String, String> _headers = headers ?? Map<String, String>();
-    // _headers["Authorization"] = "Bearer" + token;
+    Map<String, String> _headers = headers ?? <String, String>{};
+    // _headers["Authorization"] = "Bearer " + HiveAdapter.getAccessToken();
+    try {
+      _reqBody = body;
+    } catch (e) {
+      // print(e.toString());
+    }
+
+    return httpClient.post<T>(
+      url,
+      body: body,
+      headers: _headers,
+      contentType: contentType,
+      query: query,
+      decoder: decoder,
+      uploadProgress: uploadProgress,
+    )..whenComplete(() => _reqBody = null);
+  }
+
+  @override
+  Future<Response<T>> put<T>(
+    String url,
+    dynamic body, {
+    String? contentType,
+    Map<String, String>? headers,
+    Map<String, dynamic>? query,
+    Decoder<T>? decoder,
+    Progress? uploadProgress,
+  }) {
+    _checkIfDisposed();
+
+    Map<String, String> _headers = headers ?? <String, String>{};
+    // _headers["Authorization"] = "Bearer " + HiveAdapter.getAccessToken();
 
     _reqBody = body;
 
-    return httpClient.post<T>(
+    return httpClient.put<T>(
       url,
       body: body,
       headers: _headers,
@@ -117,43 +171,39 @@ class ApiConnect extends GetConnect {
 
 extension ResErr<T> on Response<T> {
   T getBody() {
-    final status = this.status;
-
     if (status.connectionError) {
       throw NoConnectionError();
     }
 
-    try {
-      if (this.isOk) {
-        final res = jsonDecode(this.bodyString!);
-        if (res is Map &&
-            res['status'] != null &&
-            ((res['status'] is bool && !res['status']) ||
-                res['status'] is String && res['status'] != 'OK')) {
-          if (res['error_message'] != null &&
-              res['error_message'].toString().isNotEmpty) {
-            throw UnknownError();
-          } else {
-            throw UnknownError();
-          }
-        }
+    if (status.isUnauthorized) {
+      throw UnauthorizedError();
+    }
 
-        return this.body!;
-      } else {
-        if (status.code == HttpStatus.requestTimeout) {
-          throw TimeoutError();
-        } else if (this.unauthorized) {
-          throw UnauthorizedError();
-        } else if (status.code == HttpStatus.unauthorized) {
-          throw UnauthorizedError();
-        } else {
-          throw UnknownError();
-        }
-      }
-    } on FormatException catch (_) {
+    if (status.code == HttpStatus.badRequest) {
+      final res = jsonDecode(bodyString!);
+      throw ServerResError(res.toString());
+    }
+
+    if (status.code == HttpStatus.requestTimeout) {
+      throw TimeoutError();
+    }
+
+    if (!status.isOk) {
       throw UnknownError();
+    }
+
+    try {
+      final res = jsonDecode(bodyString!);
+
+      if (res is Map && res['valid'] != null && !res['valid']) {
+        throw ServerResError(res['message']);
+      }
+
+      return body!;
     } on TimeoutException catch (_) {
       throw TimeoutError();
+    } catch (_) {
+      throw UnknownError();
     }
   }
 }

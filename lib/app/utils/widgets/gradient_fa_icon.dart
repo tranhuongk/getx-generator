@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:getx_generator/app/themes/app_colors.dart';
 
 class GradientIcon extends StatelessWidget {
-  GradientIcon(
+  const GradientIcon(
     this.icon, {
     Key? key,
     this.size,

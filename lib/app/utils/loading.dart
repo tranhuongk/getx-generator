@@ -5,29 +5,31 @@ import 'package:getx_generator/app/themes/app_colors.dart';
 import 'package:getx_generator/app/themes/app_text_theme.dart';
 
 class Loading extends StatelessWidget {
-  Loading({
+  const Loading({
+    Key? key,
     this.title,
     this.opacity,
-    this.loadingType = LoadingType.ChasingDots,
-  });
+    this.loadingType = LoadingType.chasingDots,
+  }) : super(key: key);
+
   final String? title;
   final double? opacity;
   final LoadingType loadingType;
 
   Widget getLoading() {
     switch (loadingType) {
-      case LoadingType.DualRing:
-        return SpinKitDualRing(
+      case LoadingType.dualRing:
+        return const SpinKitDualRing(
           color: AppColors.kPrimaryColor,
           size: 50,
         );
-      case LoadingType.DoubleBounce:
-        return SpinKitDoubleBounce(
+      case LoadingType.doubleBounce:
+        return const SpinKitDoubleBounce(
           color: AppColors.kPrimaryColor,
           size: 50,
         );
       default:
-        return SpinKitChasingDots(
+        return const SpinKitChasingDots(
           color: AppColors.kPrimaryColor,
           size: 50,
         );
@@ -40,10 +42,8 @@ class Loading extends StatelessWidget {
       backgroundColor: AppColors.white.withOpacity(opacity ?? 1),
       body: Stack(
         children: [
-          Container(
-            child: Center(
-              child: getLoading(),
-            ),
+          Center(
+            child: getLoading(),
           ),
           if (title != null)
             Positioned(
@@ -68,7 +68,7 @@ class Loading extends StatelessWidget {
 }
 
 enum LoadingType {
-  DualRing,
-  ChasingDots,
-  DoubleBounce,
+  dualRing,
+  chasingDots,
+  doubleBounce,
 }

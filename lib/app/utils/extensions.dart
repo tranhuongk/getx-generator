@@ -1,10 +1,13 @@
 import 'dart:developer';
+import 'package:flutter/foundation.dart';
 
 class Extensions {}
 
 extension StringLog on String {
   void printStr() {
-    print('$this');
+    if (kDebugMode) {
+      print(this);
+    }
   }
 
   void logStr({

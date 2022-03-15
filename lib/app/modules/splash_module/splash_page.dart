@@ -4,12 +4,14 @@ import 'package:getx_generator/app/routes/app_pages.dart';
 import 'package:getx_generator/app/utils/widgets/app_bar/custom_app_bar.dart';
 
 class SplashPage extends GetWidget {
+  const SplashPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     ///Your Function in the Future
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       // 2s over, navigate to a new page
-      Get.offNamed(AppRoutes.HOME);
+      Get.offNamed(AppRoutes.home);
     });
 
     ///Your widget
@@ -17,11 +19,9 @@ class SplashPage extends GetWidget {
       appBar: CustomAppBar(),
       body: Stack(
         children: [
-          Container(
-            child: Center(
-              child: FlutterLogo(
-                size: Get.size.width * 0.4,
-              ),
+          Center(
+            child: FlutterLogo(
+              size: Get.size.width * 0.4,
             ),
           ),
           Align(
@@ -30,7 +30,7 @@ class SplashPage extends GetWidget {
               margin: EdgeInsets.only(
                 bottom: Get.context!.mediaQueryPadding.bottom + 10,
               ),
-              child: CircularProgressIndicator(),
+              child: const CircularProgressIndicator(),
             ),
           )
         ],

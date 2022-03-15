@@ -20,7 +20,7 @@ class AppTextField extends StatefulWidget {
 }
 
 class _AppTextFieldState extends State<AppTextField> {
-  RxBool _obscureText = true.obs;
+  final RxBool _obscureText = true.obs;
   @override
   void initState() {
     super.initState();
@@ -46,20 +46,20 @@ class _AppTextFieldState extends State<AppTextField> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: widget.hintText,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   hintStyle: AppTextStyles.base.neutral3Color.s14.roboto,
                   suffixIcon: widget.obscureText != null
                       ? GestureDetector(
                           onTap: () => _obscureText.value = !_obscureText.value,
                           child: Padding(
-                            padding: EdgeInsets.only(right: 16),
+                            padding: const EdgeInsets.only(right: 16),
                             child: _obscureText.value
-                                ? Icon(CupertinoIcons.eye_slash)
-                                : Icon(CupertinoIcons.eye),
+                                ? const Icon(CupertinoIcons.eye_slash)
+                                : const Icon(CupertinoIcons.eye),
                           ),
                         )
-                      : SizedBox(),
-                  suffixIconConstraints: BoxConstraints(
+                      : const SizedBox(),
+                  suffixIconConstraints: const BoxConstraints(
                     maxWidth: 32,
                   ),
                 ),

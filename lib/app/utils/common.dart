@@ -12,16 +12,18 @@ class Common {
   Common._();
 
   static void showError(String error) {
-    Get.showSnackbar(GetBar(
-      messageText: Text(
-        error,
-        style: AppTextStyles.base.w700.s16.whiteColor,
+    Get.showSnackbar(
+      GetSnackBar(
+        messageText: Text(
+          error,
+          style: AppTextStyles.base.w700.s16.whiteColor,
+        ),
+        margin: const EdgeInsets.all(20),
+        borderRadius: 24,
+        backgroundColor: AppColors.red,
+        duration: const Duration(milliseconds: 2000),
       ),
-      margin: EdgeInsets.all(20),
-      borderRadius: 24,
-      backgroundColor: AppColors.red,
-      duration: Duration(milliseconds: 2000),
-    ));
+    );
   }
 
   static void showLoading() {
@@ -30,11 +32,11 @@ class Common {
         child: Container(
           height: 100,
           width: 100,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
             color: AppColors.gray,
           ),
-          child: SpinKitFadingCircle(
+          child: const SpinKitFadingCircle(
             size: 50,
             color: AppColors.red,
           ),
@@ -63,7 +65,7 @@ class Common {
               ),
               actions: [
                 CupertinoButton(
-                  child: Text(
+                  child: const Text(
                     'Cancel',
                     style: TextStyle(
                       color: Colors.redAccent,
@@ -74,7 +76,7 @@ class Common {
                   },
                 ),
                 CupertinoButton(
-                  child: Text('Confirm'),
+                  child: const Text('Confirm'),
                   onPressed: () {
                     result = true;
                     if (Get.isDialogOpen!) Get.back();
@@ -93,7 +95,7 @@ class Common {
               ),
               actions: [
                 CupertinoButton(
-                  child: Text(
+                  child: const Text(
                     'Cancel',
                     style: TextStyle(
                       color: Colors.redAccent,
@@ -104,7 +106,7 @@ class Common {
                   },
                 ),
                 CupertinoButton(
-                  child: Text('Confirm'),
+                  child: const Text('Confirm'),
                   onPressed: () {
                     result = true;
                     if (Get.isDialogOpen!) Get.back();
@@ -123,13 +125,13 @@ class Common {
     return await Get.dialog(
       Builder(
         builder: (BuildContext builderContext) {
-          _timer = Timer(Duration(seconds: 2), () {
+          _timer = Timer(const Duration(seconds: 2), () {
             Get.back();
           });
 
           return Center(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 color: AppColors.white,
               ),
@@ -137,8 +139,8 @@ class Common {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 16),
-                  CircleAvatar(
+                  const SizedBox(height: 16),
+                  const CircleAvatar(
                     backgroundColor: Colors.green,
                     child: Icon(
                       Icons.check,
@@ -149,7 +151,7 @@ class Common {
                     constraints: BoxConstraints(
                       maxWidth: Get.width * 2 / 3,
                     ),
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: Text(
                       title ?? 'Successful',
                       style: AppTextStyles.base.w400.s16.whiteColor,

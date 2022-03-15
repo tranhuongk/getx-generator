@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_generator/app/translations/en_US.dart';
-import 'package:getx_generator/app/translations/vi_VN.dart';
+import 'package:getx_generator/app/translations/en_us.dart';
+import 'package:getx_generator/app/translations/vi_vn.dart';
 
 class AppTranslationKey {
   AppTranslationKey._();
@@ -13,8 +13,14 @@ class AppTranslationKey {
   static String get unauthorizedError => "unauthorizedError".tr;
   static String get tryAgain => "tryAgain".tr;
   static String get identify => "identify".tr;
+  static String get error => "error".tr;
+  static String get successful => "successful".tr;
   static String get notMatch => "notMatch".tr;
   static String get noEmpty => "noEmpty".tr;
+  static String get noRecords => "noRecords".tr;
+  static String get pleaseLogin => "pleaseLogin".tr;
+  static String get noData => "noData".tr;
+  static String get enterText => "enterText".tr;
 }
 
 class AppTranslation {
@@ -22,7 +28,7 @@ class AppTranslation {
 
   static final Locale locale = Get.deviceLocale!;
   static final Map<String, Map<String, String>> translations = {
-    'en': en_US,
-    'vi': vi_VN,
+    'en': enUS,
+    'vi': viVN,
   };
 }

@@ -5,6 +5,7 @@ import 'package:getx_generator/app/utils/widgets/app_button/base_button.dart';
 
 class AppButton extends StatelessWidget {
   AppButton({
+    Key? key,
     required this.onPressed,
     this.text,
     this.color = AppColors.kPrimaryColor,
@@ -17,11 +18,12 @@ class AppButton extends StatelessWidget {
     this.height = 48,
     this.width = double.infinity,
     this.borderRadius,
-  }) {
-    this.isOutline = false;
+  }) : super(key: key) {
+    isOutline = false;
   }
 
   AppButton.outline({
+    Key? key,
     required this.onPressed,
     this.text,
     this.color = AppColors.kPrimaryColor,
@@ -34,8 +36,8 @@ class AppButton extends StatelessWidget {
     this.height = 48,
     this.width = double.infinity,
     this.borderRadius,
-  }) {
-    this.isOutline = true;
+  }) : super(key: key) {
+    isOutline = true;
   }
 
   late final bool isOutline;

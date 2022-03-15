@@ -11,10 +11,12 @@ import 'package:getx_generator/app/utils/extensions.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -30,16 +32,16 @@ class MyApp extends StatelessWidget {
           minWidth: 450,
           defaultScale: true,
           breakpoints: [
-            ResponsiveBreakpoint.resize(450, name: MOBILE),
-            ResponsiveBreakpoint.autoScale(800, name: MOBILE),
-            ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            ResponsiveBreakpoint.autoScale(1000, name: TABLET),
-            ResponsiveBreakpoint.resize(1200, name: DESKTOP),
-            ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+            const ResponsiveBreakpoint.resize(450, name: MOBILE),
+            const ResponsiveBreakpoint.autoScale(800, name: MOBILE),
+            const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+            const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+            const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
           ],
-          background: ColoredBox(color: AppColors.white),
+          background: const ColoredBox(color: AppColors.white),
         ),
-        initialRoute: AppRoutes.INITIAL,
+        initialRoute: AppRoutes.initial,
         theme: AppThemes.themData,
         getPages: AppPages.pages,
         locale: AppTranslation.locale,

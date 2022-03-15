@@ -10,24 +10,31 @@ abstract class ApiErrors implements Exception {
 
 class UnknownError extends ApiErrors {
   @override
-  final String message = AppTranslationKey.unknownError;
+  String get message => AppTranslationKey.unknownError;
   UnknownError() : super(name: 'UnknownError');
 }
 
 class TimeoutError extends ApiErrors {
   @override
-  final String message = AppTranslationKey.timeoutError;
+  String get message => AppTranslationKey.timeoutError;
   TimeoutError() : super(name: 'TimeoutError');
 }
 
 class NoConnectionError extends ApiErrors {
   @override
-  final String message = AppTranslationKey.noConnectionError;
+  String get message => AppTranslationKey.noConnectionError;
   NoConnectionError() : super(name: 'NoConnectionError');
 }
 
 class UnauthorizedError extends ApiErrors {
   @override
-  final String message = AppTranslationKey.unauthorizedError;
+  String get message => AppTranslationKey.unauthorizedError;
   UnauthorizedError() : super(name: 'UnauthorizeError');
+}
+
+class ServerResError extends ApiErrors {
+  @override
+  // ignore: overridden_fields
+  final String message;
+  ServerResError(this.message) : super(name: 'ServerResError');
 }

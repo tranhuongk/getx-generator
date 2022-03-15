@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class BaseButton extends StatelessWidget {
-  BaseButton({
+  const BaseButton({
+    Key? key,
     required this.child,
     required this.onPressed,
     this.color,
     this.disabledColor = CupertinoColors.quaternarySystemFill,
-  });
+  }) : super(key: key);
   final Widget child;
   final VoidCallback? onPressed;
   final Color? color;

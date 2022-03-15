@@ -7,7 +7,7 @@ class EndPoints {
 
   static const Duration timeout = Duration(seconds: 30);
 
-  static const String TOKEN = 'authToken';
+  static const String token = 'authToken';
 }
 
 enum LoadDataState { initialize, loading, loaded, error, timeout, unknownerror }

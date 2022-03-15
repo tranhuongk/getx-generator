@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_generator/app/themes/app_colors.dart';
@@ -9,13 +8,14 @@ import 'package:getx_generator/app/utils/widgets/app_divider/app_divider.dart';
 class DialogCustomWidget extends StatelessWidget {
   const DialogCustomWidget(
     this.content, {
+    Key? key,
     this.title,
     this.titleStyle,
     this.iconSize = 28,
     this.maxHeight,
     this.maxWidth,
     this.padding,
-  });
+  }) : super(key: key);
 
   final Widget content;
   final String? title;
@@ -50,7 +50,7 @@ class DialogCustomWidget extends StatelessWidget {
                     left: 0,
                     right: 0,
                     child: title == null
-                        ? SizedBox()
+                        ? const SizedBox()
                         : Center(
                             child: Text(
                               title ?? "",
@@ -78,7 +78,7 @@ class DialogCustomWidget extends StatelessWidget {
               ),
             ),
             if (title != null)
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 12),
                 child: AppDivider(),
               ),
@@ -87,7 +87,7 @@ class DialogCustomWidget extends StatelessWidget {
                 maxHeight: maxHeight ?? Get.height / 2.5,
               ),
               child: SingleChildScrollView(
-                padding: padding ?? EdgeInsets.all(16),
+                padding: padding ?? const EdgeInsets.all(16),
                 child: content,
               ),
             ),
