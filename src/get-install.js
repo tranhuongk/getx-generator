@@ -48,6 +48,7 @@ async function getxInstall() {
 
         var projectName = lines[0].replace("name: ", "")
         await moveFile(path, projectName)
+        vscode.window.showInformationMessage('Generate successful 🥳🤘🏻')
     }
     else { return }
 }

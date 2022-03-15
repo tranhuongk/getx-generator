@@ -1,13 +1,28 @@
 {
   "name": "getx-generator",
   "displayName": "GetX Generator",
-  "description": "GetX Generator",
-  "version": "0.0.1",
+  "description": "GetX Generator will generate pattern and files",
+	"publisher": "HuongTran",
+  "version": "0.1.0",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.65.0"
   },
+  "bugs": {
+    "url": "https://github.com/tranhuongk/getx-generator/issues",
+    "email": "huongtv.uet@gmail.com"
+  },
+  "icon": "assets/logo.webp",
   "categories": [
-    "Other"
+    "Snippets",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "dart",
+    "flutter",
+    "angulardart",
+    "state-management",
+		"getx"
   ],
   "activationEvents": [
     "onCommand:getx-generator.getxInstall",
@@ -18,11 +33,11 @@
     "commands": [
       {
         "command": "getx-generator.getxInstall",
-        "title": "GetX: Generate Base"
+        "title": "GetX: Generate base (Install)"
       },
       {
         "command": "getx-generator.getxAddPage",
-        "title": "GetX: Generate Files"
+        "title": "GetX: Generate files (Add page)"
       }
     ]
   },
@@ -44,5 +59,9 @@
   },
   "dependencies": {
     "replace-in-file": "^6.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tranhuongk/getx-generator.git"
   }
 }

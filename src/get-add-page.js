@@ -18,11 +18,12 @@ async function getxAddPage() {
 
         const pageName = await vscode.window.showInputBox({
             placeHolder: "Enter Page Name",
-            prompt: "Add Page Name with stardard: `PageName` or `page name` or `page_name`",
+            prompt: "Add a page name with the following template: `PageName` or `page name` or `page_name`",
         });
 
-        if (pageName.length > 0) {
+        if (typeof pageName === 'string' && pageName.length > 0) {
             await moveFile(path, projectName, pageName)
+            vscode.window.showInformationMessage('Generate successful 🥳🤘🏻')
         }
     }
 }
