@@ -25,21 +25,16 @@ class MyApp extends StatelessWidget {
       // Dismiss keyboard when clicked outside
       onTap: () => Common.dismissKeyboard(),
       child: GetMaterialApp(
-        builder: (context, child) => ResponsiveWrapper.builder(
-          child,
-          defaultScaleFactor: 1.2,
-          maxWidth: 1200,
-          minWidth: 450,
-          defaultScale: true,
+        builder: (context, child) => ResponsiveBreakpoints.builder(
+          child: child!,
           breakpoints: [
-            const ResponsiveBreakpoint.resize(450, name: MOBILE),
-            const ResponsiveBreakpoint.autoScale(800, name: MOBILE),
-            const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
-            const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
-            const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+            const Breakpoint(start: 0, end: 450, name: MOBILE),
+            const Breakpoint(start: 451, end: 800, name: TABLET),
+            const Breakpoint(start: 801, end: 1000, name: TABLET),
+            const Breakpoint(start: 1001, end: 1200, name: DESKTOP),
+            const Breakpoint(start: 1201, end: 1920, name: DESKTOP),
+            const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
           ],
-          background: const ColoredBox(color: AppColors.white),
         ),
         initialRoute: AppRoutes.initial,
         theme: AppThemes.themData,

@@ -9,6 +9,6 @@ class AppThemes {
     primarySwatch: AppColors.kPrimaryColor,
     primaryColor: AppColors.kPrimaryColor,
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    textTheme: GoogleFonts.sourceSansProTextTheme(),
+    textTheme: GoogleFonts.sourceSans3TextTheme(),
   );
 }
