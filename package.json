@@ -33,7 +33,7 @@
     "commands": [
       {
         "command": "getx-generator.getxInstall",
-        "title": "GetX: Generate base (Install)"
+        "title": "GetX: (⚠️) Initialize App with getx_pattern "
       },
       {
         "command": "getx-generator.getxAddPage",

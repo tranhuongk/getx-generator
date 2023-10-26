@@ -5,6 +5,18 @@ const utils = require('./utils.js')
 var cp = require('child_process')
 
 async function getxInstall() {
+    // Exibe um diálogo de confirmação antes de prosseguir
+    const userChoice = await vscode.window.showInformationMessage(
+        'This command will delete your lib folder and replace it with a new one, with a getx_pattern do you want to continue?',
+        'Yes',
+        'No'
+    );
+
+    // Se o usuário não confirmar, sai da função
+    if (userChoice !== 'Yes') {
+        return;
+    }
+
     var pubspecPath = await utils.getPubspecPath()
 
     if (typeof pubspecPath === 'string' && pubspecPath.length > 0) {
@@ -16,7 +28,7 @@ async function getxInstall() {
 
         cp.exec(`
         cd ${path} &&
-        flutter pub remove get flutter_spinkit responsive_framework google_fonts flutter_datetime_picker
+        flutter pub remove get flutter_spinkit responsive_framework google_fonts flutter_datetime_picker_plus
         `, (err, stdout, stderr) => {
             if (err) {
 
@@ -34,11 +46,11 @@ async function getxInstall() {
                     index = i
                 }
             }
-            lines.splice(index - 1, 0, "  google_fonts: 2.2.0")
-            lines.splice(index - 1, 0, "  flutter_datetime_picker: 1.5.0")
-            lines.splice(index - 1, 0, "  responsive_framework: 0.1.6")
-            lines.splice(index - 1, 0, "  flutter_spinkit: 5.0.0")
-            lines.splice(index - 1, 0, "  get: 4.6.0")
+            lines.splice(index - 1, 0, "  google_fonts: 6.1.0")
+            lines.splice(index - 1, 0, "  flutter_datetime_picker_plus: 2.1.0")
+            lines.splice(index - 1, 0, "  responsive_framework: 1.1.1")
+            lines.splice(index - 1, 0, "  flutter_spinkit: 5.2.0")
+            lines.splice(index - 1, 0, "  get: 4.6.6")
             fs.writeFileSync(pubspecPath, lines.join('\n'), 'utf-8')
             data = lines.join('\n')
 
